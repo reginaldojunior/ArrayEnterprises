@@ -27,7 +27,8 @@
 	</title>
 	<?php
 		echo $this->Html->meta('');//icone do favicon só coloca o nome nao precisa da extensão
-		echo $this->html->css('estilos');
+		echo $this->Html->script('jquery');
+		echo $this->Html->script('funcoes');
 	?>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
@@ -75,11 +76,12 @@
           </ul>
         </li>
       </ul>
-      <form class="navbar-form navbar-left" role="search">
+      <form class="navbar-form navbar-left" role="login">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+          <input type="text" class="form-control" placeholder="Login">
+	  <input type="password" class="form-control" placeholder="Senha">
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-default">Logar</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">Link</a></li>

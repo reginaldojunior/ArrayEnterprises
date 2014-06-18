@@ -4,7 +4,12 @@
 <div class="panel panel-default">
   <div class="panel-heading">Dados - Configurações / Login</div>
   <div class="panel-body">
-    Panel content
+    <div id="cadastro">
+	Só vai aparecer quando deslogado
+    </div>
+    <div id="dados>
+    	Vai aparecer os dados do usuario logado, como foto, nome, e-mail etc..
+    </div>
   </div>
 </div>
 </div>
