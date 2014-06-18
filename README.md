@@ -1,12 +1,11 @@
-CakePHP
+Sistema de comentarios com login e upload de fotos
 =======
 
 [![CakePHP](http://cakephp.org/img/cake-logo.png)](http://www.cakephp.org)
 
-CakePHP is a rapid development framework for PHP which uses commonly known design patterns like Active Record, Association Data Mapping, Front Controller and MVC.
-Our primary goal is to provide a structured framework that enables PHP users at all levels to rapidly develop robust web applications, without any loss to flexibility.
+Este é um sistema open source que funciona como postagem e edição de comentarios
 
-Some Handy Links
+Links uteis
 ----------------
 
 [CakePHP](http://www.cakephp.org) - The rapid development PHP framework
