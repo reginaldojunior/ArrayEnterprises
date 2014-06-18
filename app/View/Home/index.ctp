@@ -4,7 +4,12 @@
 <div class="panel panel-default">
   <div class="panel-heading">Dados - Configurações / Login</div>
   <div class="panel-body">
-.....
+	<div id="logado">
+		logado
+	</div>
+	<div id="deslogado">
+		deslogado
+	</div>
   </div>
 </div>
 </div>
