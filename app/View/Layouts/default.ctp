@@ -53,13 +53,13 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-      <form class="navbar-form navbar-left" role="login">
+      <div class="navbar-form navbar-left" role="login">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Login">
-	  <input type="password" class="form-control" placeholder="Senha">
+          <input type="text" class="form-control" placeholder="Login" id="login_email">
+	        <input type="password" class="form-control" placeholder="Senha" id="login_senha">
         </div>
-        <button type="submit" class="btn btn-default">Logar</button>
-      </form>
+        <button id="logar" class="btn btn-default">Logar</button>
+      </div>
       </ul>
 
     </div><!-- /.navbar-collapse -->
