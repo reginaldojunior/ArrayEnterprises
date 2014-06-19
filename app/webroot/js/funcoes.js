@@ -109,8 +109,6 @@
 		}
 	});
 
-
-
 	$("#email").bind("input keyup paste", function(){
 		var email = $(this).val();
 
@@ -135,26 +133,41 @@
 			});
 	});
 
+	$("#postar").click(function(){
+		var msg = $("#msg").val();
 
-
-	/*setInterval(function(){
-		var acao = 'atualizar_blog';
-		var id = getParam('id');
-		//alert(id);
 		$.ajax({
 				type: "post",
 				dataType: "json",
-				url: "../requisicoes.php",
+				url: "/ArrayEnterprises/postagem/cadastrar_post",
 				async: true,
-				data: {acao: acao, id_usuario: id},				
+				data: {msg: msg},				
 				error: function(x){
 					//console.log(x);
 					//alert("Não Foi !");
 				},
 				success: function(x){
-					$("#posts").html(x).show( "slow" );
+					$("#comentarios").append(x).fadeIn();
 				}
 		});
-	},2000);*/
+	});
+
+	setInterval(function(){
+		$.ajax({
+				type: "post",
+				dataType: "json",
+				url: "/ArrayEnterprises/postagem/atualizar_posts",
+				async: true,
+				data: {},				
+				error: function(x){
+					console.log(x);
+					alert("Não Foi !" + x);
+				},
+				success: function(x){
+					console.log(x);
+					$("#comentarios").append(x);
+				}
+		});
+	},10000);
 
 });

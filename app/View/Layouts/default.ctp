@@ -46,7 +46,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sobre <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="#">GitHub</a></li>
+            <li><a href="https://github.com/reginaldo2014junior/ArrayEnterprises" target="_blank">GitHub</a></li>
             <li><a href="#">Documentacao</a></li>
           </ul>
         </li>

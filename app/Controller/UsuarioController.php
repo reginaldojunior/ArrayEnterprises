@@ -29,7 +29,7 @@ class UsuarioController extends AppController{
 	function logout(){
 		$this->Session->Destroy();
 
-		echo '<script>location.href="/winners/framework/"</script>';
+		echo '<script>location.href="/ArrayEnterprises/"</script>';
 	}
 
 	//autentica email verifica se o email e senha existem para efetuar o login, ou outra acao.
@@ -108,6 +108,7 @@ class UsuarioController extends AppController{
 		}
 	}
 
+	
 	function editar_cadastro(){
 		$this->layout = 'ajax';
 
