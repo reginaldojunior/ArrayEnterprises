@@ -18,6 +18,7 @@ class UsuarioController extends AppController{
 				$this->Session->write('Usuario.nome', $valor['Usuario']['nome']);//nome do usuario
 				$this->Session->write('Usuario.email',$valor['Usuario']['email']);//email do usuario
 				$this->Session->write('Usuario.senha',$valor['Usuario']['senha']);//senha do usuario criptografada
+				$this->Session->write('Usuario.foto', $valor['Usuario']['foto']);
 			}
 			echo json_encode(true);//retorna um true pois tudo ocorreu bem
 		}else{
@@ -53,6 +54,27 @@ class UsuarioController extends AppController{
 		echo  json_encode($this->verificar_email($email));
 	}
 
+	//se o email estiver livre retorna false, senão retorna true
+	function verificar_email($email){
+		$this->layout = 'ajax';
+		
+		if(empty($email)){
+			$email = $this->request->data['email'];
+		}
+
+		$this->loadModel('Usuario');
+		$resposta = $this->Usuario->find('count',
+											array('conditions' => array('Usuario.email' => $email))
+										);
+		$this->set('resposta', $resposta);
+
+		if($resposta >= 1){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 	function recuperar_dados($email,$senha){
 		$this->loadModel('Usuario');
 		$resposta = $this->Usuario->find('all', 
@@ -83,6 +105,45 @@ class UsuarioController extends AppController{
 			}
 		}else{
 			echo false;
+		}
+	}
+
+	function editar_cadastro(){
+		$this->layout = 'ajax';
+
+		$email = $this->request->data['email'];
+		$nome = $this->request->data['nome'];
+		$senha = $this->request->data['senha'];
+		$id = $this->Session->read('Usuario.id'); 
+
+		$senhaCrip = sha1($senha);
+
+		$dados = array(
+				  'nome' => "'".$nome."'",
+				  'senha' => "'".$senhaCrip."'"
+		);
+		
+		$resposta =	$this->Usuario->updateAll(
+				$dados,
+				array('Usuario.id' => $id)
+		);
+
+		if($resposta){
+			//recebe o array com os dados do usuario usando os parametros de email e senha
+			$resposta = $this->recuperar_dados($email,$senha);	
+			//destroe alguma session criada anteriomente
+			$this->Session->Destroy();
+			//faz o foreach com o array de dados do usuario
+			foreach($resposta as $valor) {
+				//escreve a sessao do usuario
+				$this->Session->write('Usuario.id',   $valor['Usuario']['id']);
+				$this->Session->write('Usuario.nome', $valor['Usuario']['nome']);//nome do usuario
+				$this->Session->write('Usuario.email',$valor['Usuario']['email']);//email do usuario
+				$this->Session->write('Usuario.senha',$valor['Usuario']['senha']);//senha do usuario criptografada
+				$this->Session->write('Usuario.foto', $valor['Usuario']['foto']);
+			}
+
+			echo true;
 		}
 	}
 }

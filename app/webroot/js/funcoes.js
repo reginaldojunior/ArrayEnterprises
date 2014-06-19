@@ -35,19 +35,51 @@
 					}
 				}
 			});
-		}else{
-			$("#nome_cadastro").attr('placeholder','Insira seu nome').css("border-color","#069").val();
-			$("#email_cadastro").attr('placeholder','Email invalido').css("border-color","#069").val();
-			$("#senha_cadastro").attr('placeholder','Sua senha precisa de 6 caracteres ou mais').css("border-color","#069").val();
 		}
 	});
 
+	$("#editar").click(function(){
+		var email = $("#email").val();
+		var nome = $("#nome").val();
+		var senha = $("#senha").val();
+		alert(nome);
+		//verificar as variaveis digitadadas
+		if(senha != '' && senha.length > 5 && nome != ''){
+			//da o comando post
+			$.ajax({
+				type: "post",
+				dataType: "json",
+				url: "/ArrayEnterprises/usuario/editar_cadastro",
+				async: true,
+				data: {
+					email: email,
+					nome: nome,
+					senha: senha
+				},				
+				error: function(x){
+					console.log(x);
+					//alert("Não Foi !");
+				},
+				success: function(x){
+					console.log(x);
+					if(x == true){						
+						location.href="/ArrayEnterprises/home/logado"
+						console.log(x);
+					}else{
+						console.log("Erro: " + x);
+					}
+				}
+			});
+		}else{
+			alert("entrou aki");
+		}
+	});
 
 	$("#logar").click(function(){
 		//pega os dados dos input para passa na viariavel
 		var email = $("#login_email").val();
 		var senha = $("#login_senha").val();
-		alert(email);
+
 		//verificar as variaveis digitadadas
 		if(senha != '' && senha.length > 5 && email.indexOf("@") >= 0 && email.indexOf(".") >= 0){
 			//da o comando post
@@ -67,18 +99,13 @@
 				success: function(x){
 					console.log(x);
 					if(x == true){						
-						$("#deslogado").fadeOut();
-						$("#logado").css("display","blocker");
+						location.href="home/logado"
 						console.log(x);
 					}else{
 						console.log("Erro: " + x);
 					}
 				}
 			});
-		}else{
-			$("#nome_cadastro").attr('placeholder','Insira seu nome').css("border-color","#069").val();
-			$("#email_cadastro").attr('placeholder','Email invalido').css("border-color","#069").val();
-			$("#senha_cadastro").attr('placeholder','Sua senha precisa de 6 caracteres ou mais').css("border-color","#069").val();
 		}
 	});
 

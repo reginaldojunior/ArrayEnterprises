@@ -1,31 +1,9 @@
-﻿<?php
-  $id = $this->Session->read('Usuario.id');
-  $nome = $this->Session->read('Usuario.nome');
-  $email = $this->Session->read('Usuario.email');
-?>
-
-<div class="row" style="margin: 20px;">
+﻿<div class="row" style="margin: 20px;">
 <div class="col-md-6">
 
 <div class="panel panel-default">
   <div class="panel-heading">Dados - Configurações / Login</div>
   <div class="panel-body">
-
-	<div id="logado">
-    <div class="row">
-      <div class="col-md-6">
-        <a class="pull-left" href="#">
-          <img class="img-rounded" alt="" src="img/1.png" alt="..." width="150" height="150">
-        </a>
-      </div>
-      <div class="col-md-6">
-        <div class="jumbotron">
-          <p>...</p>
-        </div>
-      </div>
-    </div>
-	</div>
-
 
 	<div id="deslogado">
     <div class="form-group">
