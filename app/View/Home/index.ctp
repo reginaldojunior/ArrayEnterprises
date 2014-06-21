@@ -1,7 +1,12 @@
-﻿<div class="row" style="margin: 20px;">
+﻿
+<div class="row" style="margin: 10px;">
+
+<div class="alert alert-success" style="display: none;" id="alertCadastrar"></div>
+
+
 <div class="col-md-6">
 
-<div class="panel panel-default">
+<div class="panel panel-default" id="panel">
   <div class="panel-heading">Dados - Configurações / Login</div>
   <div class="panel-body">
 

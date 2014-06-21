@@ -13,10 +13,11 @@ class PostagemController extends AppController {
 		$fk_id_usuario = $this->Session->read('Usuario.id');
 
 		$data = array('comentario' => $msg, 'fk_id_usuario' => $fk_id_usuario);
+
 		if($this->Comentario->save($data)){
 			$mensagem = '<hr><li><div class="media">';
 	        $mensagem .= '<a class="pull-left" href="#">';
-	        $mensagem .= '<img class="img-rounded" alt="" src="../img/1.png" alt="..." width="80" height="80">';
+	        $mensagem .= '<img class="img-rounded" alt="" src="../img/'.$this->Session->read('Usuario.foto').'" alt="..." width="80" height="80">';
 	        $mensagem .= '</a>';
 	        $mensagem .= '<div class="media-body">';
 	        $mensagem .= '<h4 class="media-heading">'.$this->Session->read('Usuario.nome').'</h4>';
@@ -42,7 +43,19 @@ class PostagemController extends AppController {
 		$this->layout = 'ajax';
 		$this->loadModel('Comentario');
 
-		$resposta = $this->Comentario->find('all');
+		$resposta = $this->Comentario->find('all',
+                array('joins' => array(
+                                       array('table' => 'usuarios',
+                                             'alias' => 'u',
+                                             'type' => 'inner',
+                                             'foreignKey' => false,
+                                             'conditions'=> array('Comentario.fk_id_usuario = u.id')
+                                        )
+                                 ),
+                       'conditions'=>array('u.id'=>8),
+                       'order'=>array('u.id ASC')
+                ));
+
 		$cont = $this->Comentario->find('count');
 
 		$resultado = '';
@@ -50,7 +63,7 @@ class PostagemController extends AppController {
 		foreach ($resposta as $indice => $valor) {
 			$mensagem = '<hr><li id='.$valor['Comentario']['id'].'><div class="media">';
 	        $mensagem .= '<a class="pull-left" href="#">';
-	        $mensagem .= '<img class="img-rounded" alt="" src="../img/1.png" alt="..." width="80" height="80">';
+	        $mensagem .= '<img class="img-rounded" alt="" src="../img/" alt="..." width="80" height="80">';
 	        $mensagem .= '</a>';
 	        $mensagem .= '<div class="media-body">';
 	        $mensagem .= '<h4 class="media-heading">Fazer join com fkid do usuario que</h4>';

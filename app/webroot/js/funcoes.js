@@ -12,7 +12,7 @@
 			$.ajax({
 				type: "post",
 				dataType: "json",
-				url: "usuario/novo_cadastro",
+				url: "/usuario/novo_cadastro",
 				async: true,
 				data: {
 					acao: 'inserir',
@@ -27,8 +27,12 @@
 				success: function(x){
 					console.log(x);
 					if(x == true){						
-						$("#deslogado").fadeOut();
-						$("#logado").css("display","blocker");
+						$("#nome").css("border-color","green");
+						$("#email").css("border-color","green");
+						$("#senha").css("border-color","green");
+						$("#cadastrar").html("Faça seu login").removeClass("btn btn-primary").addClass("btn btn-success");
+						$("#panel").removeClass("panel panel-default").addClass("panel panel-success");
+						$("#alertCadastrar").css("display","block").html("Cadastro efetuado com sucesso, por favor faça o login.");
 						console.log(x);
 					}else{
 						console.log("Erro: " + x);
@@ -49,7 +53,7 @@
 			$.ajax({
 				type: "post",
 				dataType: "json",
-				url: "/ArrayEnterprises/usuario/editar_cadastro",
+				url: "/usuario/editar_cadastro",
 				async: true,
 				data: {
 					email: email,
@@ -63,7 +67,7 @@
 				success: function(x){
 					console.log(x);
 					if(x == true){						
-						location.href="/ArrayEnterprises/home/logado"
+						location.href="../home/logado"
 						console.log(x);
 					}else{
 						console.log("Erro: " + x);
@@ -86,7 +90,7 @@
 			$.ajax({
 				type: "post",
 				dataType: "json",
-				url: "usuario/login/"+email+"/"+senha,
+				url: "/usuario/login/"+email+"/"+senha,
 				async: true,
 				data: {
 					email: email,
@@ -115,7 +119,7 @@
 			$.ajax({
 				type: "post",
 				dataType: "json",
-				url: "usuario/verificar_email_ajax",
+				url: "/usuario/verificar_email_ajax",
 				async: true,
 				data: {email: email},				
 				error: function(x){
@@ -139,7 +143,7 @@
 		$.ajax({
 				type: "post",
 				dataType: "json",
-				url: "/ArrayEnterprises/postagem/cadastrar_post",
+				url: "/postagem/cadastrar_post",
 				async: true,
 				data: {msg: msg},				
 				error: function(x){
@@ -156,7 +160,7 @@
 		$.ajax({
 				type: "post",
 				dataType: "json",
-				url: "/ArrayEnterprises/postagem/atualizar_posts",
+				url: "/postagem/atualizar_posts",
 				async: true,
 				data: {},				
 				error: function(x){

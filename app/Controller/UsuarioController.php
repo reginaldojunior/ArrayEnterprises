@@ -88,6 +88,57 @@ class UsuarioController extends AppController{
 		return $resposta;
 	}
 
+	function salvar_foto(){
+		//define o id do usuario que está logado pela session
+		$id = $this->Session->read('Usuario.id');
+		// Lista de tipos de arquivos permitidos
+   		$tiposPermitidos= array('image/jpeg', 'image/pjpeg', 'image/png');
+   		// Tamanho máximo (em bytes)
+    	$tamanhoPermitido = 7000 * 500; // 1000 Kb
+
+		$arqName = $_FILES['arquivo']['name'];//nome original do arquivo
+		$arqType = $_FILES['arquivo']['type'];//formato do arquivo
+		$arqSize = $_FILES['arquivo']['size'];//tamanho do arquivo
+		$arqTemp = $_FILES['arquivo']['tmp_name'];//nome do arquivo temporario gerado pelo php
+		$arqError = $_FILES['arquivo']['error'];//se existir erros, vai ser armazenados nesta variavel
+
+		if($arqError == 0){
+			if(array_search($arqType, $tiposPermitidos)){
+				echo 'O Tipo de arquivo é invalido';
+			}else if($arqSize > $tamanhoPermitido){
+				echo 'O tamanho do arquivo deve ser menor';
+			}else{
+				$pasta = WWW_ROOT.'img/';
+				//pega a extensão do arquivo enviando
+				$extensao = explode('.', $arqName);
+				//define o novo nome do arquivo, [1] representa o indice do array que está a extensão
+				$nome = time().'.'.$extensao[1];
+				//move o arquivo para a pasta, e guarda o resultado na variavel upload
+				$upload = move_uploaded_file($arqTemp, $pasta.$nome);
+				if($upload){
+					$dados = array(
+							  'foto' => "'".$nome."'"
+					);
+					
+					$resposta =	$this->Usuario->updateAll(
+							$dados,
+							array('Usuario.id' => $id)
+					);
+					if($resposta){
+						$this->Session->write('Usuario.foto', $nome);
+						echo 'ocorreu tudo bem';
+					}else{
+						echo 'Os dados não foram salvos no banco';
+					}
+				}else{
+					echo 'Ocorreu erro ao mover o arquivo para a pasta';
+				}
+			}
+		}else{
+			echo 'Ocorreu um erro código do erro: '.$arqError;
+		}
+	}
+
 	//efetua um novo cadastro via ajax com os dados passados pelo metodo postS
 	function novo_cadastro(){
 		$this->layout = 'ajax';
@@ -108,7 +159,6 @@ class UsuarioController extends AppController{
 		}
 	}
 
-	
 	function editar_cadastro(){
 		$this->layout = 'ajax';
 

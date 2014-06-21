@@ -16,9 +16,19 @@
     <div class="row">
       <div class="col-md-6">
         <a class="pull-left" href="#">
-          <img class="img-rounded" alt="" src="../img/1.png" alt="..." width="300" height="250">
+          <img class="img-rounded" alt="" src="../img/<?php echo $foto; ?>" alt="..." width="300" height="250">
         </a>
+
+        <form method="post" action="/usuario/salvar_foto" enctype="multipart/form-data">
+          <div class="form-group" style="padding-top: 260px; padding-left: 25px;">
+              <input type="file" class="form-control" id="foto" name="arquivo">
+              <br>
+              <input style="margin-left: 75px;" type="submit" class="btn btn-primary" value="Salvar Foto" />
+          </div>
+        </form>
+
       </div>
+
       <div class="col-md-6">
           <div class="form-group">
             <label for="exampleInputEmail1">Digite seu Nome</label>
@@ -32,6 +42,7 @@
             <label for="exampleInputPassword1">Digite sua senha</label>
             <input type="password" class="form-control" id="senha" placeholder="Confirme sua senha antiga, ou digite uma nova">
           </div>
+
           <button class="btn btn-primary" id="editar">Editar</button>
           <a href="/ArrayEnterprises/usuario/logout"><span class="btn btn-danger" id="sair" >Sair !</span></a>
       </div>
