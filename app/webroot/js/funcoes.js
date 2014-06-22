@@ -1,4 +1,24 @@
 ﻿$(document).ready(function(){
+	//ler todos os comentarios que já foram postado e adicionar na listagem
+	$.ajax({
+			type: "post",
+			dataType: "json",
+			url: "/postagem/atualizar_posts",
+			async: true,
+			data: {},				
+			error: function(x){
+				console.log(x);
+				alert("Não Foi !" + x);
+			},
+			success: function(x){
+				console.log(x);
+				$("#comentarios").append(x);
+			}
+	});
+
+	$( "p" ).bind( "click", function( event ) {
+	  alert("Click happened! ");
+	});
 
 	$("#cadastrar").click(function(){
 		//pega os dados dos input para passa na viariavel
@@ -46,7 +66,6 @@
 		var email = $("#email").val();
 		var nome = $("#nome").val();
 		var senha = $("#senha").val();
-		alert(nome);
 		//verificar as variaveis digitadadas
 		if(senha != '' && senha.length > 5 && nome != ''){
 			//da o comando post
@@ -155,23 +174,5 @@
 				}
 		});
 	});
-
-	setInterval(function(){
-		$.ajax({
-				type: "post",
-				dataType: "json",
-				url: "/postagem/atualizar_posts",
-				async: true,
-				data: {},				
-				error: function(x){
-					console.log(x);
-					alert("Não Foi !" + x);
-				},
-				success: function(x){
-					console.log(x);
-					$("#comentarios").append(x);
-				}
-		});
-	},10000);
 
 });

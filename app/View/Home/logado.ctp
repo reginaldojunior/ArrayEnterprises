@@ -5,6 +5,8 @@
   $foto = $this->Session->read('Usuario.foto');
 ?>
 
+
+<p>Debora</p>
 <div class="row" style="margin: 20px;">
 <div class="col-md-6">
 
@@ -44,7 +46,7 @@
           </div>
 
           <button class="btn btn-primary" id="editar">Editar</button>
-          <a href="/ArrayEnterprises/usuario/logout"><span class="btn btn-danger" id="sair" >Sair !</span></a>
+          <a href="/usuario/logout"><span class="btn btn-danger" id="sair" >Sair !</span></a>
       </div>
     </div>
 	</div>

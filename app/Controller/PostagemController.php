@@ -11,8 +11,9 @@ class PostagemController extends AppController {
 
 		$msg = $this->request->data['msg'];
 		$fk_id_usuario = $this->Session->read('Usuario.id');
+		$data = date('d/m/y');
 
-		$data = array('comentario' => $msg, 'fk_id_usuario' => $fk_id_usuario);
+		$data = array('comentario' => $msg,'criacao' => $data ,'fk_id_usuario' => $fk_id_usuario);
 
 		if($this->Comentario->save($data)){
 			$mensagem = '<hr><li><div class="media">';
@@ -23,14 +24,14 @@ class PostagemController extends AppController {
 	        $mensagem .= '<h4 class="media-heading">'.$this->Session->read('Usuario.nome').'</h4>';
 	        $mensagem .= $msg;
 	        $mensagem .= '</div>';
+	      	$mensagem .= '<button type="button"  class="btn btn-default btn-xs">';
+	        $mensagem .= '<a href="/usuario/editar/comentario"><span class="glyphicon glyphicon-pencil"></span></a>';
+	        $mensagem .= '</button> ';
 	      	$mensagem .= '<button type="button" class="btn btn-default btn-xs">';
-	        $mensagem .= '<span class="glyphicon glyphicon-pencil"></span>';
-	        $mensagem .= '</button>';
-	      	$mensagem .= '<button type="button" class="btn btn-default btn-xs">';
-	        $mensagem .= '<span class="glyphicon glyphicon-remove"></span>';
+	        $mensagem .= '<a href="/usuario/excluir/comentario"><span class="glyphicon glyphicon-remove"></span></a>';
 	     	$mensagem .= '</button> ';
-	     	$mensagem .= ' <button type="button" class="btn btn-default btn-xs" id="">';
-		    $mensagem .= '<span class="glyphicon glyphicon-calendar"> '.$valor['Comentario']['criacao'].'</span>';
+	     	$mensagem .= ' <button type="button" class="btn btn-default btn-xs">';
+		    $mensagem .= '<span class="glyphicon glyphicon-calendar">'.date('d/m/y').'</span>';
 		    $mensagem .= '</button></li>';
 
 			echo json_encode($mensagem);
@@ -42,18 +43,18 @@ class PostagemController extends AppController {
 	function atualizar_posts(){
 		$this->layout = 'ajax';
 		$this->loadModel('Comentario');
+		$this->loadModel('Usuario');
 
 		$resposta = $this->Comentario->find('all',
                 array('joins' => array(
                                        array('table' => 'usuarios',
-                                             'alias' => 'u',
+                                             'alias' => 'Usuario',
                                              'type' => 'inner',
                                              'foreignKey' => false,
-                                             'conditions'=> array('Comentario.fk_id_usuario = u.id')
+                                             'conditions'=> array('Comentario.fk_id_usuario = Usuario.id')
                                         )
                                  ),
-                       'conditions'=>array('u.id'=>8),
-                       'order'=>array('u.id ASC')
+                       'order'=>array('Usuario.id ASC')
                 ));
 
 		$cont = $this->Comentario->find('count');
@@ -73,14 +74,14 @@ class PostagemController extends AppController {
 	        	$mensagem .= '<br>';
 	        	//não vai inserir os botões de edição pois o comentario não pentece ao usuario logado.
 	        }else{
-		      	$mensagem .= '<button type="button" class="btn btn-default btn-xs" fk_id_usuario="'.$valor['Comentario']['fk_id_usuario'].'" id="'.$valor['Comentario']['id'].'">';
-		        $mensagem .= '<span class="glyphicon glyphicon-pencil"></span>';
+		      	$mensagem .= '<button type="button" class="btn btn-default btn-xs" id="bteditar">';
+	        	$mensagem .= '<a href="/postagem/editar"><span class="glyphicon glyphicon-pencil"></span></a>';
 		        $mensagem .= '</button> ';
 		      	$mensagem .= ' <button type="button" class="btn btn-default btn-xs" id="'.$valor['Comentario']['id'].'">';
-		        $mensagem .= '<span class="glyphicon glyphicon-remove"></span>';
+	       		$mensagem .= '<a href="/postagem/excluir"><span class="glyphicon glyphicon-remove"></span></a>';
 		     	$mensagem .= '</button> ';
 		    }
-		    $mensagem .= ' <button type="button" class="btn btn-default btn-xs" id="">';
+		    $mensagem .= '<button type="button" class="btn btn-default btn-xs" id="">';
 		    $mensagem .= '<span class="glyphicon glyphicon-calendar"> '.$valor['Comentario']['criacao'].'</span>';
 		   	$mensagem .= '</button></li>';
 
@@ -88,5 +89,10 @@ class PostagemController extends AppController {
 		}
 
 	    echo json_encode($resultado);
+	}
+
+	function excluir(){
+		$this->loadModel('Comentario');
+		
 	}
 }
