@@ -19,6 +19,7 @@ class UsuarioController extends AppController{
 				$this->Session->write('Usuario.email',$valor['Usuario']['email']);//email do usuario
 				$this->Session->write('Usuario.senha',$valor['Usuario']['senha']);//senha do usuario criptografada
 				$this->Session->write('Usuario.foto', $valor['Usuario']['foto']);
+				$this->Session->write('Usuario.admin',$valor['Usuario']['admin']);
 			}
 			echo json_encode(true);//retorna um true pois tudo ocorreu bem
 		}else{
@@ -29,7 +30,7 @@ class UsuarioController extends AppController{
 	function logout(){
 		$this->Session->Destroy();
 
-		echo '<script>location.href=""</script>';
+		echo '<script>location.href="/"</script>';
 	}
 
 	//autentica email verifica se o email e senha existem para efetuar o login, ou outra acao.

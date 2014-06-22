@@ -68,16 +68,15 @@ class PostagemController extends AppController {
 	        $mensagem .= '<h4 class="media-heading">Fazer join com fkid do usuario que</h4>';
 	        $mensagem .= $valor['Comentario']['comentario'];
 	        $mensagem .= '</div>';
-	        if($valor['Comentario']['fk_id_usuario'] != $this->Session->read('Usuario.id')){
-	        	$mensagem .= '<br>';
-	        	//não vai inserir os botões de edição pois o comentario não pentece ao usuario logado.
-	        }else{
+	        if($valor['Comentario']['fk_id_usuario'] == $this->Session->read('Usuario.id') || $this->Session->read('Usuario.admin') == 1){
 		      	$mensagem .= '<button type="button" class="btn btn-default btn-xs">';
 	        	$mensagem .= '<a href="/postagem/editar/'.$valor['Comentario']['id'].'"><span class="glyphicon glyphicon-pencil"></span></a>';
 		        $mensagem .= '</button> ';
 		      	$mensagem .= ' <button type="button" class="btn btn-default btn-xs">';
 	       		$mensagem .= '<a href="/postagem/excluir/'.$valor['Comentario']['id'].'"><span class="glyphicon glyphicon-remove"></span></a>';
 		     	$mensagem .= '</button> ';
+		    }else{
+	        	$mensagem .= '<br>';
 		    }
 		    $mensagem .= '<button type="button" class="btn btn-default btn-xs" id="">';
 		    $mensagem .= '<span class="glyphicon glyphicon-calendar"> '.$valor['Comentario']['criacao'].'</span>';
