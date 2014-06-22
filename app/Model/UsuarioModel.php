@@ -2,7 +2,6 @@
 App::user('AppModel','Model');
 
 class UsuarioModel extends AppModel{
-	public $usuario = 'UsuarioModel';
-
-	public $belongsTo = array('Comentario');
+	public $usuario = 'Usuario';
+	public $hasMany = array('Comentario');
 }

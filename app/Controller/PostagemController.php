@@ -50,8 +50,8 @@ class PostagemController extends AppController {
                                        array('table' => 'usuarios',
                                              'alias' => 'Usuario',
                                              'type' => 'inner',
-                                             'foreignKey' => false,
-                                             'conditions'=> array('Comentario.fk_id_usuario = Usuario.id')
+                                             'foreignKey' => 'usuario_id',
+                                             'conditions'=> array('Comentario.usuario_id = Usuario.id')
                                         )
                                  ),
                        'order'=>array('Comentario.id DESC')
@@ -68,7 +68,7 @@ class PostagemController extends AppController {
 	        $mensagem .= '<h4 class="media-heading">Fazer join com fkid do usuario que</h4>';
 	        $mensagem .= $valor['Comentario']['comentario'];
 	        $mensagem .= '</div>';
-	        if($valor['Comentario']['fk_id_usuario'] == $this->Session->read('Usuario.id') || $this->Session->read('Usuario.admin') == 1){
+	        if($valor['Comentario']['usuario_id'] == $this->Session->read('Usuario.id') || $this->Session->read('Usuario.admin') == 1){
 		      	$mensagem .= '<button type="button" class="btn btn-default btn-xs">';
 	        	$mensagem .= '<a href="/postagem/editar/'.$valor['Comentario']['id'].'"><span class="glyphicon glyphicon-pencil"></span></a>';
 		        $mensagem .= '</button> ';
