@@ -5,8 +5,6 @@
   $foto = $this->Session->read('Usuario.foto');
 ?>
 
-
-<p>Debora</p>
 <div class="row" style="margin: 20px;">
 <div class="col-md-6">
 

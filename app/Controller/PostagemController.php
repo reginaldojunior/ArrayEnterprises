@@ -54,10 +54,8 @@ class PostagemController extends AppController {
                                              'conditions'=> array('Comentario.fk_id_usuario = Usuario.id')
                                         )
                                  ),
-                       'order'=>array('Usuario.id ASC')
+                       'order'=>array('Comentario.id DESC')
                 ));
-
-		$cont = $this->Comentario->find('count');
 
 		$resultado = '';
 
@@ -74,11 +72,11 @@ class PostagemController extends AppController {
 	        	$mensagem .= '<br>';
 	        	//não vai inserir os botões de edição pois o comentario não pentece ao usuario logado.
 	        }else{
-		      	$mensagem .= '<button type="button" class="btn btn-default btn-xs" id="bteditar">';
-	        	$mensagem .= '<a href="/postagem/editar"><span class="glyphicon glyphicon-pencil"></span></a>';
+		      	$mensagem .= '<button type="button" class="btn btn-default btn-xs">';
+	        	$mensagem .= '<a href="/postagem/editar/'.$valor['Comentario']['id'].'"><span class="glyphicon glyphicon-pencil"></span></a>';
 		        $mensagem .= '</button> ';
-		      	$mensagem .= ' <button type="button" class="btn btn-default btn-xs" id="'.$valor['Comentario']['id'].'">';
-	       		$mensagem .= '<a href="/postagem/excluir"><span class="glyphicon glyphicon-remove"></span></a>';
+		      	$mensagem .= ' <button type="button" class="btn btn-default btn-xs">';
+	       		$mensagem .= '<a href="/postagem/excluir/'.$valor['Comentario']['id'].'"><span class="glyphicon glyphicon-remove"></span></a>';
 		     	$mensagem .= '</button> ';
 		    }
 		    $mensagem .= '<button type="button" class="btn btn-default btn-xs" id="">';
@@ -91,8 +89,38 @@ class PostagemController extends AppController {
 	    echo json_encode($resultado);
 	}
 
-	function excluir(){
+	function excluir($id){
 		$this->loadModel('Comentario');
 		
+		if($this->Comentario->delete($id)){
+			echo '<script>location.href="/home/logado"</script>';
+		}
+	}
+
+	function editar($id){
+		$this->Session->write('Comentario.id', $id);
+
+		echo $this->Session->read('Comentario.id');
+	}
+
+	function salvar_edicao(){
+		$this->layout = 'ajax';
+		$this->loadModel('Comentario');
+
+		$msg = $this->request->data['msg'];
+		$data = date('d/m/y');
+		$id = $this->Session->read('Comentario.id');
+
+		$dados = array(
+				  'comentario' => "'".$msg."'",
+				  'atualizado' => "'".$data."'"
+		);
+		
+		$resposta =	$this->Comentario->updateAll(
+				$dados,
+				array('Comentario.id' => $id)
+		);
+
+		echo $resposta;
 	}
 }

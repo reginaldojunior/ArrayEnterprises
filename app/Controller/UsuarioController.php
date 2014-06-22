@@ -29,7 +29,7 @@ class UsuarioController extends AppController{
 	function logout(){
 		$this->Session->Destroy();
 
-		echo '<script>location.href="/ArrayEnterprises/"</script>';
+		echo '<script>location.href=""</script>';
 	}
 
 	//autentica email verifica se o email e senha existem para efetuar o login, ou outra acao.
@@ -148,7 +148,7 @@ class UsuarioController extends AppController{
 		$senha = sha1($this->request->data['senha']);
 
 		if($this->verificar_email($email) == false){
-			$data = array('nome' => $nome, 'email' => $email, 'senha' => $senha);
+			$data = array('nome' => $nome, 'email' => $email, 'senha' => $senha, 'admin' => 0);
 			if($this->Usuario->save($data)){
 				echo true;
 			}else{

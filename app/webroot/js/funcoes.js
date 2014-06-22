@@ -125,6 +125,7 @@
 						location.href="home/logado"
 						console.log(x);
 					}else{
+						$("#alertCadastrar").removeClass("alert alert-success").addClass("alert alert-warning").css("display","block").html("Erro email ou senha incorretos, verifique e digite novamente.");
 						console.log("Erro: " + x);
 					}
 				}
@@ -171,6 +172,25 @@
 				},
 				success: function(x){
 					$("#comentarios").append(x).fadeIn();
+				}
+		});
+	});
+
+	$("#editar_post").click(function(){
+		var msg = $("#msg").val();
+
+		$.ajax({
+				type: "post",
+				dataType: "json",
+				url: "/postagem/salvar_edicao",
+				async: true,
+				data: {msg: msg},				
+				error: function(x){
+					console.log(x);
+					//alert("Não Foi !");
+				},
+				success: function(x){
+					location.href="/home/logado";
 				}
 		});
 	});
