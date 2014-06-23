@@ -65,7 +65,7 @@ class PostagemController extends AppController {
 	        $mensagem .= '<img class="img-rounded" alt="" src="../img/" alt="..." width="80" height="80">';
 	        $mensagem .= '</a>';
 	        $mensagem .= '<div class="media-body">';
-	        $mensagem .= '<h4 class="media-heading">Fazer join com fkid do usuario que</h4>';
+	        $mensagem .= '<h4 class="media-heading"><span id="teste">Nome</span></h4>';
 	        $mensagem .= $valor['Comentario']['comentario'];
 	        $mensagem .= '</div>';
 	        if($valor['Comentario']['usuario_id'] == $this->Session->read('Usuario.id') || $this->Session->read('Usuario.admin') == 1){

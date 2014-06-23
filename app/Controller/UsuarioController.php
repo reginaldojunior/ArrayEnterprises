@@ -127,7 +127,7 @@ class UsuarioController extends AppController{
 					);
 					if($resposta){
 						$this->Session->write('Usuario.foto', $nome);
-						echo 'ocorreu tudo bem';
+						echo '<script>location.href="/home/logado"</script>';
 					}else{
 						echo 'Os dados não foram salvos no banco';
 					}
@@ -198,4 +198,5 @@ class UsuarioController extends AppController{
 			echo true;
 		}
 	}
+
 }

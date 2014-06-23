@@ -16,11 +16,11 @@
 			}
 	});
 
-	$( "p" ).bind( "click", function( event ) {
-	  alert("Click happened! ");
+	$('#teste').on('click', function() {
+		alert('funciona porra');
 	});
 
-	$("#cadastrar").click(function(){
+	$("#cadastrar").on('click',function(){
 		//pega os dados dos input para passa na viariavel
 		var nome  = $("#nome").val();
 		var email = $("#email").val();
@@ -62,7 +62,7 @@
 		}
 	});
 
-	$("#editar").click(function(){
+	$("#editar").on('click',function(){
 		var email = $("#email").val();
 		var nome = $("#nome").val();
 		var senha = $("#senha").val();
@@ -98,7 +98,7 @@
 		}
 	});
 
-	$("#logar").click(function(){
+	$("#logar").on('click',function(){
 		//pega os dados dos input para passa na viariavel
 		var email = $("#login_email").val();
 		var senha = $("#login_senha").val();
@@ -157,7 +157,7 @@
 			});
 	});
 
-	$("#postar").click(function(){
+	$("#postar").on('click', function(){
 		var msg = $("#msg").val();
 
 		$.ajax({
@@ -172,11 +172,12 @@
 				},
 				success: function(x){
 					$("#comentarios").append(x).fadeIn();
+					$("#msg").attr('placeholder','Comentario cadastrado com sucesso !').val("");
 				}
 		});
 	});
 
-	$("#editar_post").click(function(){
+	$("#editar_post").on('click', function(){
 		var msg = $("#msg").val();
 
 		$.ajax({
