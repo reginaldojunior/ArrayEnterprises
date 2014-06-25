@@ -10,10 +10,10 @@ class PostagemController extends AppController {
 		$this->loadModel('Comentario');
 
 		$msg = $this->request->data['msg'];
-		$fk_id_usuario = $this->Session->read('Usuario.id');
+		$usuario_id = $this->Session->read('Usuario.id');
 		$data = date('d/m/y');
 
-		$data = array('comentario' => $msg,'criacao' => $data ,'fk_id_usuario' => $fk_id_usuario);
+		$data = array('comentario' => $msg,'criacao' => $data ,'usuario_id' => $usuario_id);
 
 		if($this->Comentario->save($data)){
 			$mensagem = '<hr><li><div class="media">';
@@ -45,27 +45,16 @@ class PostagemController extends AppController {
 		$this->loadModel('Comentario');
 		$this->loadModel('Usuario');
 
-		$resposta = $this->Comentario->find('all',
-                array('joins' => array(
-                                       array('table' => 'usuarios',
-                                             'alias' => 'Usuario',
-                                             'type' => 'inner',
-                                             'foreignKey' => 'usuario_id',
-                                             'conditions'=> array('Comentario.usuario_id = Usuario.id')
-                                        )
-                                 ),
-                       'order'=>array('Comentario.id DESC')
-                ));
-
+		$resposta = $this->Comentario->find('all');
 		$resultado = '';
 
 		foreach ($resposta as $indice => $valor) {
 			$mensagem = '<hr><li id='.$valor['Comentario']['id'].'><div class="media">';
 	        $mensagem .= '<a class="pull-left" href="#">';
-	        $mensagem .= '<img class="img-rounded" alt="" src="../img/" alt="..." width="80" height="80">';
+	        $mensagem .= '<img class="img-rounded" alt="" src="../img/'.$valor['Usuario']['foto'].'" alt="..." width="80" height="80">';
 	        $mensagem .= '</a>';
 	        $mensagem .= '<div class="media-body">';
-	        $mensagem .= '<h4 class="media-heading"><span id="teste">Nome</span></h4>';
+	        $mensagem .= '<h4 class="media-heading"><span id="teste">'.$valor['Usuario']['nome'].'</span></h4>';
 	        $mensagem .= $valor['Comentario']['comentario'];
 	        $mensagem .= '</div>';
 	        if($valor['Comentario']['usuario_id'] == $this->Session->read('Usuario.id') || $this->Session->read('Usuario.admin') == 1){

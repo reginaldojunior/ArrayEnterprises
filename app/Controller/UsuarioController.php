@@ -2,6 +2,10 @@
 
 class UsuarioController extends AppController{
 
+	function index(){
+		$this->set('users', $this->Usuario->find('all'));
+	}
+
 	//faz o login no sistema, com a função autentica_email
 	function login($login_email,$login_senha){
 		$this->layout = 'ajax';//chama o layout para executar uma função ajax
