@@ -5,7 +5,11 @@ class PostagemController extends AppController {
 
 	}
         
-        function transformar_data($data){
+        /*
+         * Função que transformar uma data da forma do banco de dados mysql
+         * para a forma brasileira sendo D/M/A => dia/mês/ano
+         */
+        private function transformar_data($data){
             $exibir_data = '';
             $exibir_data = explode('-', $data);
             
@@ -95,28 +99,26 @@ class PostagemController extends AppController {
 
 	function editar($id){
 		$this->Session->write('Comentario.id', $id);
-
-		echo $this->Session->read('Comentario.id');
 	}
 
 	function salvar_edicao(){
-		$this->layout = 'ajax';
-		$this->loadModel('Comentario');
+		$this->layout = 'ajax';//define layout para o ajax
+		$this->loadModel('Comentario');//carrega o model comentario
 
-		$msg = $this->request->data['msg'];
-		$data = date('d/m/y');
-		$id = $this->Session->read('Comentario.id');
+		$msg = $this->request->data['msg'];//recupera o dado msg do campo msg passado via ajax
+		$data = date('y/m/d');//data em formato do banco de dados
+		$id = $this->Session->read('Comentario.id');//escreve o id da sessão
 
 		$dados = array(
 				  'comentario' => "'".$msg."'",
 				  'atualizado' => "'".$data."'"
-		);
+		);//dados que vão se atualizados
 		
 		$resposta =	$this->Comentario->updateAll(
 				$dados,
 				array('Comentario.id' => $id)
-		);
+		);//faz a atualização dos dados e salva o resultado na resposta
 
-		echo $resposta;
+		echo $resposta;//faz o echo da resposta para o ajax
 	}
 }
