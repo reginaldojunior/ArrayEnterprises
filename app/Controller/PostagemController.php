@@ -13,7 +13,9 @@ class PostagemController extends AppController {
             $exibir_data = '';
             $exibir_data = explode('-', $data);
             
-            return $exibir_data[2].'/'.$exibir_data[1].'/'.$exibir_data[0];
+            $ano_hora = explode(' ', $exibir_data[2]);
+            
+            return $ano_hora[1].' - '.$ano_hora[0].'/'.$exibir_data[1].'/'.$exibir_data[0];
         }
 
 	function cadastrar_post(){
@@ -22,9 +24,9 @@ class PostagemController extends AppController {
 
 		$msg = $this->request->data['msg'];
 		$usuario_id = $this->Session->read('Usuario.id');
-		$dia_hoje = date('y-m-d');//formato do banco de dados;
+		$dia_hoje = date('Y-m-d H:i:s');//formato do banco de dados;
                 
-		$data = array('comentario' => $msg,'criacao' => $dia_hoje ,'usuario_id' => $usuario_id);
+		$data = array('comentario' => $msg,'criacao' => $dia_hoje , 'atualizado' => $dia_hoje,'usuario_id' => $usuario_id);
                
 		if($this->Comentario->save($data)){
                     $mensagem = '<hr><li><div class="media">';
@@ -43,7 +45,7 @@ class PostagemController extends AppController {
                     $mensagem .= '</button> ';
                     $mensagem .= ' <button type="button" class="btn btn-default btn-xs">';
                     //transforma a data para o formato brasileiro
-                    $mensagem .= '<span class="glyphicon glyphicon-calendar">'.$this->transformar_data(date('y-m-d')).'</span>';
+                    $mensagem .= '<span class="glyphicon glyphicon-calendar">'.$this->transformar_data(date('y-m-d H:i:s')).'</span>';
 		    $mensagem .= '</button></li>';
 
                     echo json_encode($mensagem);
@@ -80,7 +82,7 @@ class PostagemController extends AppController {
 	        	$mensagem .= '<br>';
 		    }
 		    $mensagem .= '<button type="button" class="btn btn-default btn-xs" id="">';
-		    $mensagem .= '<span class="glyphicon glyphicon-calendar"> '.$this->transformar_data($valor['Comentario']['criacao']).'</span>';
+		    $mensagem .= '<span class="glyphicon glyphicon-calendar"> '.$this->transformar_data($valor['Comentario']['atualizado']).'</span>';
                     $mensagem .= '</button></li>';
 
 	     	$resultado .= $mensagem;
