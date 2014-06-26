@@ -2,7 +2,7 @@
 
 class Usuario extends AppModel {
 
-	public $displayField = 'comentario';
+    public $displayField = 'comentario';
    	
     //public $belongsTo = 'Categoria';
 

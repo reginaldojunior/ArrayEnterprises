@@ -1,9 +1,9 @@
 <?php
 class Comentario extends AppModel{
-
-	public $uses = 'comentario';
-	public $name = 'Comentarios';
-
+    public $displayField = 'LogComentario';
+    
+    public $uses = 'comentario';
+    public $name = 'Comentarios';
 
     public $userTable = 'comentarios';
 
