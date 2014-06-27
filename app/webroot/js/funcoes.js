@@ -59,7 +59,11 @@
 					}
 				}
 			});
-		}
+		}else{
+                  $("#nome").val("").attr("placeholder", "Digite seu nome, corretamente");
+                  $("#email").val("").attr("placeholder", "Digite seu email, corretamente");
+                  $("#senha").val("").attr("placeholder", "Sua senha precisar conter mais de 5 caracteres.");
+                }
 	});
 
 	$("#editar").on('click',function(){
@@ -94,7 +98,9 @@
 				}
 			});
 		}else{
-			alert("entrou aki");
+			$("#nome").val("").attr("placeholder", "Digite seu nome, corretamente");
+                        //$("#email").val("").attr("placeholder", "Digite seu email, corretamente");
+                        $("#senha").val("").attr("placeholder", "Sua senha precisar conter mais de 5 caracteres.");
 		}
 	});
 
