@@ -26,7 +26,7 @@ class PostagemController extends AppController {
 		$usuario_id = $this->Session->read('Usuario.id');
 		$dia_hoje = date('Y-m-d H:i:s');//formato do banco de dados;
                 
-		$data = array('comentario' => $msg,'criacao' => $dia_hoje , 'atualizado' => $dia_hoje,'usuario_id' => $usuario_id);
+		$data = array('comentario' => $msg,'criacao' => $dia_hoje , 'atualizado' => $dia_hoje, 'usuario_id' => $usuario_id);
                
 		if($this->Comentario->save($data)){
                     $mensagem = '<hr><li><div class="media">';
@@ -38,7 +38,7 @@ class PostagemController extends AppController {
                     $mensagem .= $msg;
                     $mensagem .= '</div>';
                     $mensagem .= '<button type="button"  class="btn btn-default btn-xs">';
-                    $mensagem .= '<a href="/usuario/editar/comentario"><span class="glyphicon glyphicon-pencil"></span></a>';
+                    $mensagem .= '<a href="/postagem/editar/'.$valor['Comentario']['id'].'"><span class="glyphicon glyphicon-pencil"></span></a>';
                     $mensagem .= '</button> ';
                     $mensagem .= '<button type="button" class="btn btn-default btn-xs">';
                     $mensagem .= '<a href="/usuario/excluir/comentario"><span class="glyphicon glyphicon-remove"></span></a>';
@@ -108,7 +108,7 @@ class PostagemController extends AppController {
 		$this->loadModel('Comentario');//carrega o model comentario
 
 		$msg = $this->request->data['msg'];//recupera o dado msg do campo msg passado via ajax
-		$data = date('y/m/d');//data em formato do banco de dados
+		$data = date('Y-m-d H:i:s');;//data em formato do banco de dados
 		$id = $this->Session->read('Comentario.id');//escreve o id da sessão
 
 		$dados = array(
@@ -120,7 +120,18 @@ class PostagemController extends AppController {
 				$dados,
 				array('Comentario.id' => $id)
 		);//faz a atualização dos dados e salva o resultado na resposta
-
-		echo $resposta;//faz o echo da resposta para o ajax
+                
+                //salvar o log da edição do comentario
+                if($resposta){
+                    $this->loadModel('LogComentario');
+                    $dia_hoje = date('Y-m-d H:i:s');//formato do banco de dados;
+                    $data = array('comentario_id' => $id , 'usuario_id' => $this->Session->read('Usuario.id'), 'data' => $dia_hoje);
+               
+                    if($this->LogComentario->save($data)){
+                        echo $resposta;//faz o echo da resposta para o ajax
+                    }
+                }
+                
+		
 	}
 }

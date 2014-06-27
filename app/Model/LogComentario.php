@@ -1,9 +1,8 @@
 <?php
 class LogComentario extends AppModel{
 
-	public $uses = 'log_comentario';
-	public $name = 'LogComentarios';
-
+    public $uses = 'log_comentario';
+    public $name = 'LogComentarios';
 
     public $userTable = 'log_comentarios';
 
@@ -18,5 +17,4 @@ class LogComentario extends AppModel{
             'order' => array('Comentario.id' => 'ASC')
 	    )
     );
-
 }
