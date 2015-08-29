@@ -1,42 +1,27 @@
-Sistema de comentarios com login e upload de fotos
-=======
+ - ArrayEnterprises
+ - 
+ 
+Sistema de comentarios com login, administrador, log de edição de comentarios, edição de comentarios e exclusão somente para o usuario logado.
 
-[![CakePHP](http://cakephp.org/img/cake-logo.png)](http://www.cakephp.org)
+===============================
+MVC - Sistema baseado na arquitetura MVC(Model, View, Controller) onde o Model é a parte onde tratar o banco de dados, a View é onde exibir os dados para o usuario, e o Controller consiste em ter todas as funções necessarias para execução do sistema.
 
-Este é um sistema open source que funciona como postagem e edição de comentarios
+Mais informações: http://blog.thiagobelem.net/o-que-e-o-mvc/
+===============================
+Framework Cakephp
+A framework utilizada para realizar este projeto foi a cakephp
 
-Links uteis
-----------------
+Mais informações: cakephp.org
+===============================
+A configuração do banco de dados é feita a partir do arquivo app/Config/database.php
 
-[CakePHP](http://www.cakephp.org) - The rapid development PHP framework
+===============================
+Framework Css
+Foi utilizada a framework boostrap para o css deste projeto
 
-[CookBook](http://book.cakephp.org) - THE CakePHP user documentation; start learning here!
+Mais informações: http://getbootstrap.com/
 
-[API](http://api.cakephp.org) - A reference to CakePHP's classes
 
-[Plugins](http://plugins.cakephp.org/) - A repository of extensions to the framework
+O sql deste sistema encotra-se neste diretorio com o nome de dump.sql
 
-[The Bakery](http://bakery.cakephp.org) - Tips, tutorials and articles
-
-[Community Center](http://community.cakephp.org) - A source for everything community related
-
-[Training](http://training.cakephp.org) - Join a live session and get skilled with the framework
-
-[CakeFest](http://cakefest.org) - Don't miss our annual CakePHP conference
-
-[Cake Software Foundation](http://cakefoundation.org) - Promoting development related to CakePHP
-
-Get Support!
-------------
-
-[#cakephp](http://webchat.freenode.net/?channels=#cakephp) on irc.freenode.net - Come chat with us, we have cake
-
-[Google Group](https://groups.google.com/group/cake-php) - Community mailing list and forum
-
-[GitHub Issues](https://github.com/cakephp/cakephp/issues) - Got issues? Please tell us!
-
-[Roadmaps](https://github.com/cakephp/cakephp/wiki#roadmaps) - Want to contribute? Get involved!
-
-[![Bake Status](https://secure.travis-ci.org/cakephp/cakephp.png?branch=master)](http://travis-ci.org/cakephp/cakephp)
-
-![Cake Power](https://raw.github.com/cakephp/cakephp/master/lib/Cake/Console/Templates/skel/webroot/img/cake.power.gif)
+Mais informações só criar issue ou mandar e-mail: jr.design_2010@hotmail.com
